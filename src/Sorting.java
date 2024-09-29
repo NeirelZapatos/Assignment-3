@@ -116,19 +116,20 @@ public class Sorting {
 		long start_time = System.nanoTime();
 			if (sortAlg.equals("I"))
 			{
-			InsertionSort(data, size);
+				InsertionSort(data, size);
 			}
 			else if (sortAlg.equals("M"))
 			{
-			MergeSort(data, 0, size-1);
+				MergeSort(data, 0, size-1);
 			}
 			else if (sortAlg.equals("Q"))
 			{
-			QuickSort(data, 0, size-1);
+				int depth = QuickSort(data, 0, size-1, 0);
+				System.out.println("\nDepth: " + depth);
 			}
 			else if (sortAlg.equals("S"))
 			{
-			STLSort(data, size);
+				STLSort(data, size);
 			}
 		else
 		{
@@ -249,24 +250,59 @@ public class Sorting {
 	}
 	/*****************************************************************************/
 
-	public static void QuickSort(int data[], int lo, int hi)
+	public static int QuickSort(int data[], int lo, int hi, int depth)
 	{
 		//Write your code here
 		//You may create other functions if needed
 		if (lo >= hi) {
-			return;
+			return depth;
 		}
-
 		int m = Partition(data, lo, hi);
-		QuickSort(data, lo, m - 1);
-		QuickSort(data, m + 1, hi);
+
+		// for using insertion sort for array of 40 or less
+//		if (data.length <= 40) {
+//			InsertionSort(data, 0);
+//			return depth;
+//		} else {
+//			int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
+//			int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
+//			return Math.max(leftDepth, rightDepth);
+//		}
+
+		int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
+		int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
+		return Math.max(leftDepth, rightDepth);
+
 		//System.out.println("QuickSort");
 	}
 
 	public static int Partition(int data[], int lo, int hi) {
 		Random rand = new Random();
+
+		// for the random index pivot
 		int randIndex = rand.nextInt((hi - lo) + 1) + lo;
 		swap(hi, randIndex, data);
+
+		// for the median of three random index pivot
+//		int randIndex1 = rand.nextInt((hi - lo) + 1) + lo;
+//		int randIndex2 = rand.nextInt((hi - lo) + 1) + lo;
+//		int randIndex3 = rand.nextInt((hi - lo) + 1) + lo;
+//
+//		int num1 = data[randIndex1];
+//		int num2 = data[randIndex2];
+//		int num3 = data[randIndex3];
+//
+//		int[] randNums = {num1, num2, num3};
+//		Arrays.sort(randNums);
+//		int median = randNums[1];
+//
+//		if (median == num1) {
+//			swap(randIndex1, hi, data);
+//		} else if (median == num2) {
+//			swap(randIndex2, hi, data);
+//		} else {
+//			swap(randIndex3, hi, data);
+//		}
 
 		int v = data[hi];
 		int x = lo - 1;
