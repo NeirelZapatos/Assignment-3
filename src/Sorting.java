@@ -264,15 +264,11 @@ public class Sorting {
 		if (arrayLength <= 40) {
 			InsertionSortForQuickSort(data, lo, hi);
 			return depth;
-		} else {
-			int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
-			int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
-			return Math.max(leftDepth, rightDepth);
 		}
 
-//		int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
-//		int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
-//		return Math.max(leftDepth, rightDepth);
+		int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
+		int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
+		return Math.max(leftDepth, rightDepth);
 
 		//System.out.println("QuickSort");
 	}
