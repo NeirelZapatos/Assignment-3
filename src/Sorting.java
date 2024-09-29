@@ -260,18 +260,19 @@ public class Sorting {
 		int m = Partition(data, lo, hi);
 
 		// for using insertion sort for array of 40 or less
-//		if (data.length <= 40) {
-//			InsertionSort(data, 0);
-//			return depth;
-//		} else {
-//			int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
-//			int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
-//			return Math.max(leftDepth, rightDepth);
-//		}
+		int arrayLength = hi - lo + 1;
+		if (arrayLength <= 40) {
+			InsertionSortForQuickSort(data, lo, hi);
+			return depth;
+		} else {
+			int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
+			int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
+			return Math.max(leftDepth, rightDepth);
+		}
 
-		int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
-		int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
-		return Math.max(leftDepth, rightDepth);
+//		int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
+//		int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
+//		return Math.max(leftDepth, rightDepth);
 
 		//System.out.println("QuickSort");
 	}
@@ -316,6 +317,18 @@ public class Sorting {
 
 		swap(hi, x + 1, data);
 		return x + 1;
+	}
+
+	public static void InsertionSortForQuickSort(int[] data, int lo, int hi) {
+		for (int i = lo; i <= hi; i++) {
+			int key = data[i];
+			int j;
+			for (j = i - 1; j >= 0 && data[j] > key; j--) {
+				data[j + 1] = data[j];
+			}
+
+			data[j + 1] = key;
+		}
 	}
 	/*****************************************************************************/
 
