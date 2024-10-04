@@ -12,6 +12,8 @@ public class Sorting {
 	
 	public static String sortAlg= null;
 	public static  int size = 0;
+
+	public static Random rand = new Random();
 	
 	public static void main(String[] args) {
 		readInput();
@@ -260,11 +262,11 @@ public class Sorting {
 		int m = Partition(data, lo, hi);
 
 		// for using insertion sort for array of 40 or less
-		int arrayLength = hi - lo + 1;
-		if (arrayLength <= 40) {
-			InsertionSortForQuickSort(data, lo, hi);
-			return depth;
-		}
+//		int arrayLength = hi - lo + 1;
+//		if (arrayLength <= 40) {
+//			InsertionSortForQuickSort(data, lo, hi);
+//			return depth;
+//		}
 
 		int leftDepth = QuickSort(data, lo, m - 1, depth + 1);
 		int rightDepth = QuickSort(data, m + 1, hi, depth + 1);
@@ -274,8 +276,6 @@ public class Sorting {
 	}
 
 	public static int Partition(int data[], int lo, int hi) {
-		Random rand = new Random();
-
 		// for the random index pivot
 		int randIndex = rand.nextInt((hi - lo) + 1) + lo;
 		swap(hi, randIndex, data);
